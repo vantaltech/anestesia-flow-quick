@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,14 +26,12 @@ const ResendSMS = () => {
     }
     setLoading(true);
     try {
-      // Validar paciente en la base de datos
-  const response = await fetch("https://fxolgklxzibbakbrokcn.supabase.co/functions/v1/validate-patient-phone", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dni: dni.trim(), phone: phone.trim() })
+      // Validar paciente usando Supabase RPC
+      const { data: validResult, error: rpcError } = await supabase.rpc('validate_patient_phone', {
+        patients_dni: dni.trim(),
+        patients_phone: phone.trim()
       });
-      const result = await response.json();
-      if (!response.ok || !result.valid) {
+      if (rpcError || !validResult) {
         toast({
           title: "Datos incorrectos",
           description: "No se encontró un paciente con ese DNI y teléfono.",
@@ -42,9 +41,14 @@ const ResendSMS = () => {
         return;
       }
       // Reenviar SMS
-  const smsResp = await fetch("https://fxolgklxzibbakbrokcn.supabase.co/functions/v1/resend-validation-sms", {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
+      const smsResp = await fetch("https://fxolgklxzibbakbrokcn.supabase.co/functions/v1/resend-validation-sms", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "Authorization": `Bearer ${token}` } : {})
+        },
         body: JSON.stringify({ patientId: dni.trim() })
       });
       const smsResult = await smsResp.json();
