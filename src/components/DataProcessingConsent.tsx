@@ -10,6 +10,7 @@ interface DataProcessingConsentProps {
 
 export default function DataProcessingConsent({ onAccept }: DataProcessingConsentProps) {
   const [accepted, setAccepted] = useState(false);
+  const [files, setFiles] = useState<FileList | null>(null);
 
   const handleAccept = () => {
     if (accepted) {
@@ -82,6 +83,27 @@ export default function DataProcessingConsent({ onAccept }: DataProcessingConsen
               >
                 Acepto el tratamiento de mis datos personales para fines médicos según se describe anteriormente
               </label>
+
+              {/* Adjuntar archivos adicionales */}
+              <div className="mt-6 w-full">
+                <label htmlFor="file-upload" className="block text-sm font-medium text-gray-700 mb-2">
+                  Adjuntar archivos adicionales (fotos, informes, etc.)
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  multiple
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  onChange={e => setFiles(e.target.files)}
+                />
+                {files && files.length > 0 && (
+                  <ul className="mt-2 text-xs text-gray-600">
+                    {Array.from(files).map((file, idx) => (
+                      <li key={idx}>{file.name}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <Button 
