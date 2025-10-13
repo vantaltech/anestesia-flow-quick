@@ -23,11 +23,11 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { data: patient, error: patientError } = await supabase
-      .from('patients')
-      .select('name, phone, procedure, procedure_date')
-      .eq('id', patientId)
-      .single();
+      const { data: patient, error: patientError } = await supabase
+        .from('patients')
+        .select('name, phone, procedure, procedure_date')
+        .eq('dni', patientId)
+        .single();
 
     if (patientError || !patient) {
       console.error('Error fetching patient:', patientError);
