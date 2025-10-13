@@ -116,7 +116,7 @@ export const AuthGuard = ({ children, requiredRoles = [] }: AuthGuardProps) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
@@ -124,7 +124,7 @@ export const AuthGuard = ({ children, requiredRoles = [] }: AuthGuardProps) => {
 
   if (!user || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle>Panel de Administración Médico</CardTitle>
@@ -171,7 +171,7 @@ export const AuthGuard = ({ children, requiredRoles = [] }: AuthGuardProps) => {
   // Prevent access-denied flash: only show after userRole is loaded
   if (requiredRoles.length > 0 && userRole !== null && !requiredRoles.includes(userRole)) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle>Acceso Denegado</CardTitle>
@@ -190,7 +190,7 @@ export const AuthGuard = ({ children, requiredRoles = [] }: AuthGuardProps) => {
   }
 
   return (
-    <div className="min-h-screen">
+  <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200">
       <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-14 items-center justify-between">
           <h1 className="text-lg font-semibold">Panel de Administración</h1>

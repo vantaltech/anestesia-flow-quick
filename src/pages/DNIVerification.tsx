@@ -84,7 +84,7 @@ const DNIVerification = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20 flex items-center justify-center p-4">
+  <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-blue-200 flex items-center justify-center p-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
@@ -136,7 +136,7 @@ const DNIVerification = () => {
               </div>
               <Button
                 type="button"
-                variant="outline"
+                variant="destructive"
                 className="w-full mt-2"
                 onClick={handleResendSMS}
                 disabled={loading}
