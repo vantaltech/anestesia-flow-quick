@@ -94,7 +94,7 @@ const PatientChat = ({ patientId, onComplete }: PatientChatProps) => {
       await supabase.rpc('add_conversation_message_by_token', {
         patient_token: patientId,
         message_role: 'assistant',
-        message_content: '¡Hola! Soy su asistente de IA para la evaluación pre-anestésica. Basándome en la información que ya proporcionó en el formulario, me gustaría hacerle algunas preguntas adicionales para asegurarme de que tenemos toda la información necesaria para su procedimiento. ¿Está listo para comenzar?'
+        message_content: 'Le damos la bienvenida a la plataforma de VALORACIÓN PREANESTÉSICA. A continuación nuestro agente de IA le someterá a un cuestionario destinado a recabar información crucial para el procedimiento al que se va a someter.\nLe recomendamos que prepare:\n-	Su medicación habitual si toma (nombres y dosis).\n-	Los informes del médico que deriva para valoración (el informe de consulta y el consentimiento informado).\n-	Localice los informes previos de especialistas si es su caso (informe de cardiología, neumología, neurología, etc.).\n\nAl final del cuestionario podrá subir archivos o fotos con la información que se le solicite (por ejemplo: una foto de un informe de algún especialista en concreto).\n\n¿Empezamos?.'
       });
 
       loadConversation();
